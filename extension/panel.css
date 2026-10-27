@@ -105,3 +105,6 @@ textarea { resize: vertical; }
 .md table { border-collapse: collapse; display: block; overflow-x: auto; }
 .md th, .md td { border: 1px solid var(--line); padding: 4px 8px; }
 .md blockquote { margin: 0; padding-left: 10px; border-left: 3px solid var(--accent); color: var(--muted); }
+
+.stack { display: flex; flex-direction: column; gap: 10px; }
+.engine { font-size: .8rem; color: var(--muted); }

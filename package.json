@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.133.0",
+    "@google/genai": "2.29.1",
     "dompurify": "3.4.16",
     "marked": "18.1.1"
   },

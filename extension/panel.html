@@ -10,33 +10,66 @@
 <header class="top">
   <img src="icons/48.png" alt="" width="26" height="26">
   <h1>Pomocnik Zadań</h1>
+  <span id="engineName" class="engine"></span>
   <button id="settingsBtn" class="icon" title="Ustawienia">⚙️</button>
 </header>
 
 <!-- Ustawienia -->
 <section id="settings" class="card" hidden>
   <h2>Ustawienia</h2>
-  <label>Klucz API Claude
-    <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
-  </label>
-  <p class="hint">Klucz założysz na <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a> (płatność za użycie). Jest zapisany tylko w tej przeglądarce i wysyłany wyłącznie do API Anthropic.</p>
-  <label>Model
-    <select id="model">
-      <option value="claude-opus-5-5">Claude Opus 5.5 — najdokładniejszy</option>
-      <option value="claude-sonnet-5-5">Claude Sonnet 5.5 — szybszy i tańszy</option>
-      <option value="claude-haiku-5-5">Claude Haiku 5.5 — najtańszy</option>
+  <label>Silnik AI
+    <select id="provider">
+      <option value="gemini">Gemini (Google) — darmowy klucz</option>
+      <option value="chrome">Chrome AI — bez klucza, działa na komputerze</option>
+      <option value="claude">Claude (Anthropic) — płatny, najdokładniejszy</option>
     </select>
   </label>
-  <label>Staranność
-    <select id="effort">
-      <option value="medium">Średnia — szybciej</option>
-      <option value="high" selected>Wysoka</option>
-      <option value="xhigh">Bardzo wysoka — trudne zadania</option>
-    </select>
-  </label>
+
+  <div data-provider="gemini" class="stack">
+    <label>Klucz API Gemini
+      <input id="geminiKey" type="password" placeholder="AIza..." autocomplete="off" spellcheck="false">
+    </label>
+    <p class="hint">Darmowy klucz utworzysz na <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> (wystarczy konto Google, bez karty). Darmowa wersja ma dzienny limit zapytań, a Google może używać wysłanych treści do ulepszania modeli — nie wysyłaj danych osobowych.</p>
+    <label>Model
+      <select id="geminiModel">
+        <option value="gemini-3.8-flash">Gemini 3.8 Flash — mądrzejszy</option>
+        <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite — szybszy, większy limit</option>
+      </select>
+    </label>
+  </div>
+
+  <div data-provider="chrome" class="stack">
+    <p class="hint">Model Gemini Nano wbudowany w Chrome. Bez klucza i za darmo, ale wymaga mocnego komputera (Windows/macOS/Linux, 22 GB wolnego miejsca, karta graficzna &gt;4 GB lub 16 GB RAM). Oficjalnie zna angielski, niemiecki, francuski, hiszpański i japoński — po polsku i z matematyką radzi sobie słabiej.</p>
+    <div class="row">
+      <button id="chromeCheck" class="btn" type="button">Sprawdź / pobierz model</button>
+    </div>
+    <p id="chromeStatus" class="hint"></p>
+  </div>
+
+  <div data-provider="claude" class="stack">
+    <label>Klucz API Claude
+      <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+    </label>
+    <p class="hint">Klucz założysz na <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a> (płatność za użycie).</p>
+    <label>Model
+      <select id="model">
+        <option value="claude-opus-5-5">Claude Opus 5.5 — najdokładniejszy</option>
+        <option value="claude-sonnet-5-5">Claude Sonnet 5.5 — szybszy i tańszy</option>
+        <option value="claude-haiku-5-5">Claude Haiku 5.5 — najtańszy</option>
+      </select>
+    </label>
+    <label>Staranność
+      <select id="effort">
+        <option value="medium">Średnia — szybciej</option>
+        <option value="high" selected>Wysoka</option>
+        <option value="xhigh">Bardzo wysoka — trudne zadania</option>
+      </select>
+    </label>
+  </div>
+  <p class="hint">Klucze są zapisane tylko w tej przeglądarce i wysyłane wyłącznie do wybranego dostawcy AI.</p>
   <div class="row">
     <button id="saveSettings" class="btn primary">Zapisz</button>
-    <button id="forgetKey" class="btn ghost">Usuń klucz</button>
+    <button id="forgetKey" class="btn ghost">Usuń klucze</button>
   </div>
 </section>
 

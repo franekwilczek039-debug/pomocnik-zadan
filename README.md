@@ -1,28 +1,36 @@
 # ✨ Pomocnik Zadań AI — wtyczka do Chrome
 
-Odczytuje zadanie z otwartej strony, rozwiązuje je przy pomocy Claude i daje gotową odpowiedź do skopiowania albo wstawienia w pole na stronie, z wyjaśnieniem krok po kroku.
+Odczytuje zadanie z otwartej strony i przygotowuje gotową odpowiedź do skopiowania albo wstawienia w pole na stronie, z wyjaśnieniem krok po kroku. **Może działać całkowicie za darmo.**
 
 ## ⬇️ [Pobierz wtyczkę (ZIP)](https://github.com/franekwilczek039-debug/pomocnik-zadan/raw/main/pomocnik-zadan.zip)
 
 ## Instalacja
 
-1. Pobierz [`pomocnik-zadan.zip`](https://github.com/franekwilczek039-debug/pomocnik-zadan/raw/main/pomocnik-zadan.zip) i rozpakuj go do folderu.
+1. Pobierz [`pomocnik-zadan.zip`](https://github.com/franekwilczek039-debug/pomocnik-zadan/raw/main/pomocnik-zadan.zip) i rozpakuj go (Windows: prawy przycisk → „Wyodrębnij wszystkie”; Mac: kliknij dwa razy).
 2. W Chrome wejdź na `chrome://extensions`.
 3. Włącz **Tryb programisty** (prawy górny róg).
-4. Kliknij **Załaduj rozpakowane** i wskaż rozpakowany folder.
-5. Przypnij ikonkę wtyczki (puzzel na pasku → pinezka).
+4. Kliknij **Załaduj rozpakowane** i wskaż rozpakowany folder (ten, w którym jest `manifest.json`).
+5. Przypnij ikonkę wtyczki (puzzel na pasku → pinezka). Nie usuwaj folderu — Chrome z niego korzysta.
 
-Działa też w Edge, Brave i Operze (strony `edge://extensions` itd.).
+Działa też w Edge, Brave i Operze.
 
-## Klucz API (każdy ma własny)
+## Silnik AI — wybierz w ustawieniach (⚙️)
 
-Wtyczka nie zawiera żadnego konta ani klucza. Każdy wpisuje swój:
+| Silnik | Cena | Co trzeba |
+|---|---|---|
+| **Gemini (Google)** — domyślny | **za darmo** (dzienny limit) | darmowy klucz z konta Google |
+| **Chrome AI** | **za darmo**, bez klucza | mocny komputer: 22 GB wolnego miejsca, karta graficzna >4 GB lub 16 GB RAM; oficjalnie nie zna polskiego, słabszy w matematyce |
+| **Claude (Anthropic)** | płatny (ułamek centa – kilka centów za zadanie) | klucz z console.anthropic.com i doładowane saldo |
 
-1. Załóż konto na <https://console.anthropic.com> i doładuj saldo (Billing).
-2. W **API Keys** utwórz klucz (`sk-ant-...`).
-3. Kliknij ikonkę wtyczki → ⚙️ → wklej klucz → **Zapisz**.
+### Darmowy klucz Gemini (2 minuty)
 
-Klucz zostaje tylko w Twojej przeglądarce i jest wysyłany wyłącznie do API Anthropic. Koszt jednego zadania to zwykle ułamek centa do kilku centów; panel pokazuje szacunek. Model Haiku jest najtańszy, Opus najdokładniejszy.
+1. Wejdź na <https://aistudio.google.com/apikey> i zaloguj się kontem Google.
+2. Kliknij **Create API key** (Utwórz klucz) i skopiuj go (zaczyna się od `AIza`).
+3. Kliknij ikonkę wtyczki → ⚙️ → **Silnik AI: Gemini** → wklej klucz → **Zapisz**.
+
+Gdy skończy się darmowy limit, wtyczka to powie — odczekaj albo wybierz model **Flash-Lite**. W darmowej wersji Google może używać wysłanych treści do ulepszania modeli, więc nie wysyłaj danych osobowych.
+
+Każdy używa własnego klucza. Wtyczka nie zawiera żadnego konta; klucze zostają tylko w Twojej przeglądarce.
 
 ## Jak używać
 
@@ -31,11 +39,11 @@ Klucz zostaje tylko w Twojej przeglądarce i jest wysyłany wyłącznie do API A
 3. Przy rysunkach, wykresach i wzorach zaznacz **Dołącz zrzut ekranu**.
 4. Kliknij **Rozwiąż zadanie z tej strony**.
 5. **Kopiuj** albo kliknij w pole na stronie, a potem **Wstaw w pole**.
-6. W polu **Dopytaj** możesz poprosić o wyjaśnienie, skrócenie, poprawkę.
+6. W polu **Dopytaj** możesz poprosić o wyjaśnienie, skrócenie albo poprawkę.
 
 ## Dla programistów
 
-Kod panelu jest w `src/panel.js` (oficjalne SDK `@anthropic-ai/sdk`). Po zmianach:
+Kod panelu jest w `src/panel.js` (oficjalne SDK `@google/genai` i `@anthropic-ai/sdk`, Prompt API Chrome). Po zmianach:
 
 ```bash
 npm install
