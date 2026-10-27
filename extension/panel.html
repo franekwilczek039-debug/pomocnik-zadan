@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pomocnik Zadań AI</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<header class="top">
+  <img src="icons/48.png" alt="" width="26" height="26">
+  <h1>Pomocnik Zadań</h1>
+  <button id="settingsBtn" class="icon" title="Ustawienia">⚙️</button>
+</header>
+
+<!-- Ustawienia -->
+<section id="settings" class="card" hidden>
+  <h2>Ustawienia</h2>
+  <label>Klucz API Claude
+    <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+  </label>
+  <p class="hint">Klucz założysz na <a href="https://console.anthropic.com/settings/keys" target="_blank">console.anthropic.com</a> (płatność za użycie). Jest zapisany tylko w tej przeglądarce i wysyłany wyłącznie do API Anthropic.</p>
+  <label>Model
+    <select id="model">
+      <option value="claude-opus-5-5">Claude Opus 5.5 — najdokładniejszy</option>
+      <option value="claude-sonnet-5-5">Claude Sonnet 5.5 — szybszy i tańszy</option>
+      <option value="claude-haiku-5-5">Claude Haiku 5.5 — najtańszy</option>
+    </select>
+  </label>
+  <label>Staranność
+    <select id="effort">
+      <option value="medium">Średnia — szybciej</option>
+      <option value="high" selected>Wysoka</option>
+      <option value="xhigh">Bardzo wysoka — trudne zadania</option>
+    </select>
+  </label>
+  <div class="row">
+    <button id="saveSettings" class="btn primary">Zapisz</button>
+    <button id="forgetKey" class="btn ghost">Usuń klucz</button>
+  </div>
+</section>
+
+<!-- Główny formularz -->
+<section id="main" class="card">
+  <p class="hint">Otwórz stronę z zadaniem. Możesz zaznaczyć myszką sam fragment z poleceniem — wtedy wtyczka weźmie tylko jego.</p>
+
+  <fieldset class="seg">
+    <legend>Odpowiedź</legend>
+    <label><input type="radio" name="mode" value="explain" checked> z wyjaśnieniem</label>
+    <label><input type="radio" name="mode" value="answer"> tylko wynik</label>
+  </fieldset>
+
+  <label class="check"><input type="checkbox" id="useShot"> Dołącz zrzut ekranu (rysunki, wykresy, wzory)</label>
+  <label>Dodatkowa wskazówka (opcjonalnie)
+    <input id="extra" type="text" placeholder="np. odpowiedz po angielsku, max 5 zdań, poziom 7 klasy">
+  </label>
+
+  <button id="solveBtn" class="btn primary big">✨ Rozwiąż zadanie z tej strony</button>
+  <button id="stopBtn" class="btn danger big" hidden>■ Zatrzymaj</button>
+  <div id="status" class="status" hidden></div>
+</section>
+
+<!-- Wynik -->
+<section id="result" hidden>
+  <div class="card answer-card">
+    <div class="answer-head">
+      <h2>Odpowiedź</h2>
+      <div class="row">
+        <button id="copyBtn" class="btn small">📋 Kopiuj</button>
+        <button id="insertBtn" class="btn small" title="Wstawia odpowiedź w pole, w którym ostatnio był kursor na stronie">⤵ Wstaw w pole</button>
+      </div>
+    </div>
+    <pre id="answer" class="answer"></pre>
+  </div>
+  <div class="card" id="explainCard" hidden>
+    <h2>Wyjaśnienie</h2>
+    <div id="explain" class="md"></div>
+  </div>
+  <div class="card">
+    <label>Dopytaj o coś
+      <textarea id="followup" rows="2" placeholder="np. dlaczego w kroku 2 dzielimy przez 3? / zrób krócej / sprawdź jeszcze raz"></textarea>
+    </label>
+    <button id="followBtn" class="btn">Wyślij</button>
+  </div>
+  <p id="usage" class="hint"></p>
+</section>
+
+<script type="module" src="panel.js"></script>
+</body>
+</html>
